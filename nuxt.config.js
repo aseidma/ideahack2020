@@ -47,7 +47,8 @@ export default {
       },
       services: {
         firestore: true,
-        hosting: true
+        hosting: true,
+        functions: true
       }
     }
   ],
