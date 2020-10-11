@@ -10,11 +10,23 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap',
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Montserrat:wght@400;600&display=swap',
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~/css/main.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -34,24 +46,31 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/firebase',
-    {
-      config: {
-        apiKey: "AIzaSyDs7IQdZnD7eeUo5BEYzGOtyxig9_RIcTA",
-        authDomain: "ideahack2020.firebaseapp.com",
-        databaseURL: "https://ideahack2020.firebaseio.com",
-        projectId: "ideahack2020",
-        storageBucket: "ideahack2020.appspot.com",
-        messagingSenderId: "258740608895",
-        appId: "1:258740608895:web:8d82051e23e6645469444a"
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyDs7IQdZnD7eeUo5BEYzGOtyxig9_RIcTA',
+          authDomain: 'ideahack2020.firebaseapp.com',
+          databaseURL: 'https://ideahack2020.firebaseio.com',
+          projectId: 'ideahack2020',
+          storageBucket: 'ideahack2020.appspot.com',
+          messagingSenderId: '258740608895',
+          appId: '1:258740608895:web:8d82051e23e6645469444a',
+        },
+        services: {
+          firestore: true,
+          hosting: true,
+          functions: true,
+          messaging: false,
+        },
       },
-      services: {
-        firestore: true,
-        hosting: true,
-        functions: true
-      }
-    }
+    ],
   ],
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
