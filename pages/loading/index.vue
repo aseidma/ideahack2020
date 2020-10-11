@@ -35,6 +35,12 @@ export default class Loading extends Vue {
     }
 
     setTimeout(() => {
+
+      console.log(this.$route.query)
+      if (this.$route.query.results == "true") {
+        return this.$router.push({ path: "/results" })
+      }
+
         this.$router.push({ path: "/zde/job-title/skills" })
     }, 2000)
   }

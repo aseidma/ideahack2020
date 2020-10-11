@@ -1,5 +1,5 @@
 export const state = () => ({
-
+    matchingOccupations: []
 })
 
 
@@ -11,10 +11,18 @@ export const mutations = {
 
 export const actions = {
     async findMatchingOccupations(vuexContext, payload) {
-        // TODO: Fetch Data from Algorithm
-        
+        let matches;
+        console.log({ skillSet: payload})
 
-        // TODO: return fetched data
-        return vuexContext.commit("setOccupationMatches", payload)
+        try {
+            const matchOccupation = this.$fireFunc.httpsCallable(
+              "matchOccupation"
+            );
+            matches = await matchOccupation({ skillSet: payload});
+          } catch (error) {
+            if (error) console.log(error)
+          }
+
+        return vuexContext.commit("setOccupationMatches", matches)
     }
 }

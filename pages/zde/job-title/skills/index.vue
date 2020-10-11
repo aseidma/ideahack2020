@@ -10,9 +10,23 @@
             v-model="searchTerm"
             placeholder="Look for a skill..."
           ></b-input>
-          <SkillCloud v-model="pickedSkills" style="margin-bottom: 3rem" :skills="skills" />
+          <SkillCloud
+            v-model="pickedSkills"
+            style="margin-bottom: 3rem"
+            :skills="skills"
+          />
           <SkillProgress style="margin-bottom: 3rem" :skills="pickedSkills" />
-          <b-button :class="[{ 'primary': pickedSkills.length === 15, 'secondary': pickedSkills.length < 15 }]" :disabled="pickedSkills.length === 15">Got it!</b-button>
+          <b-button
+            @click="navigateNext"
+            :class="[
+              {
+                primary: pickedSkills.length === 15,
+                secondary: pickedSkills.length < 15,
+              },
+            ]"
+            :disabled="pickedSkills.length !== 15"
+            >Got it!</b-button
+          >
         </div>
       </b-container>
     </div>
@@ -68,10 +82,12 @@ export default class Skills extends Vue {
   }
 
   private navigateNext() {
+    console.log("running")
     // TODO: Trigger Algorithm with picked skills
-    this.$store.dispatch("findMatchingOccupations", this.pickedSkills)
+    this.$store.dispatch('findMatchingOccupations', this.pickedSkills)
 
     // Navigate to the next page
+    this.$router.push({ path: "/loading", query: { results: 'true' } })
   }
 
   // Hooks

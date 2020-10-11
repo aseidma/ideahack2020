@@ -1,28 +1,84 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const algoliasearch = require('algoliasearch');
+const functions = require('firebase-functions')
+const admin = require('firebase-admin')
+const serviceAccount = require("../serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://ideahack2020.firebaseio.com',
+})
 
-const ALGOLIA_APP_ID = 'JZYHS0Z7PP';
-const ALGOLIA_ADMIN_KEY = '05462d841d21463cbb000bc60de2e280';
-const ALOGOLIA_INDEX_NAME = 'prod_skills';
+const firestore = admin.firestore()
 
-admin.initializeApp(functions.config().firebase);
+exports.matchOccupation = functions.https.onCall(
+  async (data: any, context: any) => {
+    const rankingResults: Array<string[]> = []
 
-exports.firestoreToAlgolia = functions.https.onCall((req: any, res: any) => {
-    const arr: string[] = [];
-    admin.firestore().collection('skills').get().then((docs: any) => {
-        docs.forEach((doc: any) => {
-            const skill: any = doc.data();
-            arr.push(skill);
-        });
+    const matches: string[] = []
+    const matchRanks: number[] = []
 
-        const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
-        const index =  client.initIndex(ALOGOLIA_INDEX_NAME);
-        
-        index.saveObjects(arr, (err: Error, content: any) => {
-            if (err) res.status(500);
-            
-            res.status(200).send(content);
-        });
-    });
-});
+    const skillSet = data.skillSet
+
+    // Rank skills
+    for (const skill of skillSet) {
+      const skillID = skill.conceptUri
+
+      // Get the matching occupations
+      const occupationMatches = await firestore
+        .collection('occupationSkillRelations')
+        .where('skillUri', '==', skillID)
+        .get()
+
+      occupationMatches.forEach((doc: any) => {
+        const { occupationUri: match } = doc.data()
+
+        if (!matches.includes(match)) {
+          matches.push(match)
+          matchRanks.push(1)
+        } else {
+          const matchIndex = matches.indexOf(match)
+          matchRanks[matchIndex]++
+        }
+      })
+    }
+
+    // Evaluate ranking
+    for (let j = 0; j < 3; j++) {
+      const maxRank = Math.max(...matchRanks)
+      let indicesOfMaxElements = matchRanks
+        .map((value, index) => {
+          if (value === maxRank) {
+            return index
+          }
+          return
+        })
+        .filter((value) => typeof value === 'number')
+
+      const occupationsRankedAtPosition: string[] = []
+
+      for (const indexOfMatch of indicesOfMaxElements) {
+        // Get Occupation labels
+        const result = await firestore
+          .collection('occupations')
+          .where('conceptUri', '==', matches[indexOfMatch as number])
+          .get()
+
+        let matchingOccupationLabel: string
+
+        result.forEach((doc: any) => {
+          // console.log(doc.data())
+          matchingOccupationLabel = doc.data().preferredLabel
+        })
+
+        occupationsRankedAtPosition.push(matchingOccupationLabel!)
+      }
+
+      rankingResults.push(occupationsRankedAtPosition)
+
+      for (const index of indicesOfMaxElements) {
+        matchRanks.splice(index as number, 1)
+        matches.splice(index as number, 1)
+      }
+    }
+
+    return rankingResults
+  }
+)
