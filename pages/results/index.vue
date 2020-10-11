@@ -26,6 +26,7 @@ export default class Results extends Vue {
     get results() {
         const { data } = this.$store.state.matchingOccupations;
 
+        // It works!!!
         if (data) {
             return data;
         } else {
