@@ -82,8 +82,6 @@ export default class Skills extends Vue {
   }
 
   private navigateNext() {
-    console.log("running")
-    // TODO: Trigger Algorithm with picked skills
     this.$store.dispatch('findMatchingOccupations', this.pickedSkills)
 
     // Navigate to the next page
