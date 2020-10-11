@@ -1,5 +1,5 @@
 ### Meet Emma
-**try out our working prototype now at https://ideahack2020.web.app/!**
+**Try out our working prototype now at https://ideahack2020.web.app/!**
 
 > "I want to grow professionally, but I'm stuck in in my organization. I don't feel appreciated; I spend too much time micromanaging and my skills are being wasted." — Rita Gonzalez, Project Manager, 27 
 
@@ -15,9 +15,9 @@ Typical job recommendation sites suggest jobs at or below their current level, s
 
 These job-recommendation systems fail them. So many turn to career coaching — a billion dollar industry in Western Europe alone. But at an average cost of over 100€ per hour<sup>2</sup>, it's impossible to have one at your beck and call.
 
-So, what if you had an encouraging, empathetic career mentor that you could call on 24/7? What if she could tell you where to take the next step _ and _ all of the skills that you need to get there? What if she was _ a fraction of the cost _ of a career coach?
+So, what if you had an encouraging, empathetic career mentor that you could call on 24/7? What if she could tell you where to take the next step and all of the skills that you need to get there? What if she was _a fraction of the cost_ of a career coach?
 
-** This is emma. **
+**This is emma.**
 
 emma makes sure that you can find the jobs that you deserve. She's light-years more intelligent than a typical job search algorithm. She can see deep patterns between occupations and provide superhuman insider knowledge. Tell her your skills, and she'll recommend a job to you just above your level, but still achievable in the short-term — and guide you toward the resources you need to get there. She'll even keep you accountable to your goals. 
 
@@ -35,5 +35,8 @@ Want to try emma for yourself? Just visit [emmai.tech](http://emmai.tech).
 <sup>1</sup>Deolittle (2020)
 <sup>2</sup>upskillcoach
 <sup>3</sup>Millenial Careers: 2020 Vision (manpowergroup)
-_ Every part of emma — including user research — was conceived, validated, and implemented during IdeaHacks 2020 _
-_ we registered the domain emmai.tech on Domain.com, however hooking up the DNS to our firebase app takes longer that the span of a hackathon, on average. _
+Every part of emma — including user research — was conceived, validated, and implemented during IdeaHacks 2020
+
+We registered the domain emmai.tech on Domain.com, however hooking up the DNS to our firebase app takes longer that the span of a hackathon, on average. 
+
+Have feedback? fill out our user survey! https://docs.google.com/forms/d/1WQf6rqKFkZ-GgrVL2rIubcSkxgisBd2nz3Le0TxxQfU/prefill
