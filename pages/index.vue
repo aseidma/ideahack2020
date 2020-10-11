@@ -1,65 +1,34 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">ideahack2020</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <b-container class="content-container">
+      <div class="content-container__content">
+        <p class="emma-statement">
+          Hey! I'm Emma and I'm here to help you with your professional growth.
+          <br />
+          Are you ready?
+        </p>
+
+        <div class="content__button-row">
+          <b-button class="secondary">Back</b-button>
+          <b-button class="primary" @click="navigateNext">Let's go!</b-button>
+        </div>
       </div>
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from "nuxt-property-decorator"
 
-export default Vue.extend({})
+@Component({
+  name: "WelcomeScreen"
+})
+export default class WelcomeScreen extends Vue {
+  // Methods
+  public navigateNext() {
+    this.$router.push({ path: "/zde" })
+  }
+}
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
+<style></style>
