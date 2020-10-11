@@ -6,6 +6,7 @@
       v-for="skillPill in skills"
       :key="skillPill.id"
       @click="pickSkill(skillPill)"
+      :class="{ picked: pickedSkills.includes(skillPill) }"
     >
       {{ skillPill.preferredLabel }}
     </div>
@@ -35,7 +36,15 @@ export default class SkillCloud extends Vue {
 
   @Emit("input")
   public pickSkill(skill: SkillPill) {
-    if (this.pickedSkills.includes(skill) || this.pickedSkills.length === 15)
+    if (this.pickedSkills.includes(skill)) {
+      const index = this.pickedSkills.indexOf(skill);
+
+      this.pickedSkills.splice(index, 1);
+
+      return this.pickedSkills;
+    }
+
+    if (this.pickedSkills.length === 15)
       return this.pickedSkills
 
     this.pickedSkills.push(skill)
@@ -65,5 +74,10 @@ export default class SkillCloud extends Vue {
   border: 2px solid #a8cc7b;
   border-radius: 2rem;
   max-height: 44px;
+  transition: background-color .4s ease-in-out;
+}
+
+.skill-cloud .skill-pill.picked {
+  background-color: #a8cc7b;
 }
 </style>

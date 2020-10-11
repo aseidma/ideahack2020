@@ -16,15 +16,6 @@
           },
         ]"
       >
-        <transition name="fade">
-          <span
-            class="skill__title"
-            v-if="
-              skillList[position - 1] ? skillList[position - 1].hovered : false
-            "
-            >{{ skillList[position - 1].preferredLabel }}</span
-          >
-        </transition>
       </div>
     </div>
   </div>
